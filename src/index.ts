@@ -14,14 +14,11 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "password",
   database: process.env.DB_NAME || "test_db",
-  entities: [User,Post],
+  entities: [User, Post],
   synchronize: true,
 });
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 const initializeDatabase = async () => {
-  await wait(20000);
   try {
     await AppDataSource.initialize();
     console.log("Data Source has been initialized!");
@@ -41,11 +38,7 @@ app.post('/users', async (req, res) => {
   }
 
   try {
-    const user = new User("Manuella", "Oliveira", "manu@gmail.com");
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-
+    const user = new User(firstName, lastName, email);
     await AppDataSource.manager.save(user);
     res.status(201).json(user);
   } catch (error) {
@@ -61,6 +54,10 @@ app.post('/posts', async (req, res) => {
     return res.status(400).json({ message: 'Forneça todos os campos: title, description, userId.' });
   }
 
+  if (isNaN(userId)) {
+    return res.status(400).json({ message: 'userId deve ser um número válido.' });
+  }
+
   try {
     const user = await AppDataSource.manager.findOne(User, { where: { id: userId } });
 
@@ -68,9 +65,7 @@ app.post('/posts', async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
-    const post = new Post("Como se tornar um programador Back-end", "Descrição", 0);
-    post.title = title;
-    post.description = description;
+    const post = new Post(title, description, userId);
     post.user = user;
 
     await AppDataSource.manager.save(post);

@@ -20,8 +20,8 @@ async function testCreateUser() {
 }
 
 const testPost = {
-  title: "Some message",
-  description: "Some description",
+  title: "Como se tornar uma desenvolvedora Back-end",
+  description: "Descrição",
   userId: null as number | null
 };
 
