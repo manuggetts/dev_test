@@ -1,17 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { User } from "./User";
 
-//TODO Crie a entidade de Post
-
+@Entity()
 export class Post {
-    id: number;
-    title: string;
-    description: string;
-    userId: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    constructor(id: number, title: string, description: string, userId: number) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.userId = userId;
-    }
+  @Column()
+  title: string;
+
+  @Column()
+  description: string;
+
+  @ManyToOne(() => User, user => user.posts)
+  user: User;
+
+  @Column()
+  userId: number;
+
+  constructor(title: string, description: string, userId: number) {
+    this.title = title;
+    this.description = description;
+    this.userId = userId;
+    this.user = undefined!;
+  }
 }

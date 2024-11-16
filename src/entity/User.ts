@@ -1,17 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Post } from "./Post";
 
-//TODO Crie a entidade de User
-
+@Entity()
 export class User {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
+  @PrimaryGeneratedColumn()
+  id?: number;
 
-    constructor(id: number, firstName: string, lastName: string, email: string) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
+  @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
+  @Column()
+  email: string;
+
+  @OneToMany(() => Post, post => post.user)
+  posts: Post[];
+
+  constructor(firstName: string, lastName: string, email: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.posts = [];
+  }
 }
