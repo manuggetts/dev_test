@@ -4,7 +4,7 @@ import { User } from "./User";
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number = 0;
 
   @Column()
   title: string;

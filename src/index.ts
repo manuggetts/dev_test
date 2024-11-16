@@ -68,7 +68,7 @@ app.post('/posts', async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
-    const post = new Post("Como se tornar um programador Back-end", "Descrição", 1);
+    const post = new Post("Como se tornar um programador Back-end", "Descrição", 0);
     post.title = title;
     post.description = description;
     post.user = user;
@@ -81,7 +81,7 @@ app.post('/posts', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

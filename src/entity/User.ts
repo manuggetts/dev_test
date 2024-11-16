@@ -4,7 +4,7 @@ import { Post } from "./Post";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id: number = 0;
 
   @Column()
   firstName: string;
@@ -16,12 +16,11 @@ export class User {
   email: string;
 
   @OneToMany(() => Post, post => post.user)
-  posts: Post[];
+  posts!: Post[];
 
   constructor(firstName: string, lastName: string, email: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.posts = [];
   }
 }
