@@ -1,3 +1,7 @@
+<h1> Vídeo do teste: </h1>
+
+https://github.com/user-attachments/assets/5a972fc9-7c67-4dc0-88a4-7bd6d990f9c7
+
 # Descrição do Teste para a Vaga de Desenvolvedor Jr.
 
 ## Contextualização do Desafio
